@@ -12,3 +12,79 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.org-chart-container {
+  width: 100%;
+  height: calc(100vh - 60px);
+}
+
+.org-chart-item {
+  border: 1px solid #E9EBF5;
+  border-radius: 15px;
+  height: 100%;
+  width: 100%;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+}
+
+.navigate {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  height: 60px;
+  background-color: #3d4465;
+}
+
+.link {
+  text-decoration: none;
+  color: #fff;
+}
+
+.link--active {
+  text-decoration: underline;
+}
+
+.tmlt-container {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.tmlt-img {
+  height: 70px;
+  width: 70px;
+  margin-right: 20px;
+  margin-left: 20px;
+}
+
+.tmlt-name {
+  font-weight: 500;
+  color: #3d4465;
+  font-size: 28px;
+  margin: 0;
+}
+
+.tmlt-role {
+  font-weight: normal;
+  color: #8b93a6;
+  font-size: 20px;
+  margin-top: 10px;
+}
+
+.live-editor {
+  background-color: #005;
+  height: calc(100vh - 60px);
+  overflow: auto !important;
+  min-width: 500px;
+  max-width: 500px;
+}
+
+.live-preview {
+  display: flex;
+  flex: 1;
+}
+
+.live-container {
+  display: flex;
+}
