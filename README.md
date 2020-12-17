@@ -15,7 +15,7 @@ npm install --save react-balkangraph-orgchart
 ```tsx
 import React, { Component } from 'react'
 
-import MyComponent from 'react-balkangraph-orgchart'
+import OrgChart from 'react-balkangraph-orgchart'
 import 'react-balkangraph-orgchart/dist/index.css'
 
 import avatar from 'src/assets/avatar.svg'
@@ -55,7 +55,7 @@ types = {
 ```tsx
 import React, { Component } from 'react'
 
-import MyComponent from 'react-balkangraph-orgchart'
+import OrgChart, { getNode, OrgChartConfig } from 'react-balkangraph-orgchart'
 import 'react-balkangraph-orgchart/dist/index.css'
 
 import avatar from 'src/assets/avatar.svg'
