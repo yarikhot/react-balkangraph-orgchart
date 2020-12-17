@@ -38,7 +38,6 @@ const nodes = [{ id: 1, name: 'Andriy', pid: 0, avatar, role: 'CEO' },
      }
   }}
 />
-}
 ```
 ## Usage with custom template
 
@@ -96,7 +95,6 @@ const nodeSize = { height: 142, width: 348 }
     mouseScrool: OrgChartConfig.action.ctrlZoom
   }}
 />
-}
 ```
 
 ## OrgChart Props
