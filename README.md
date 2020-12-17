@@ -10,7 +10,7 @@
 npm install --save react-balkangraph-orgchart
 ```
 
-## Usage
+## Usage with default template
 
 ```tsx
 import React, { Component } from 'react'
@@ -20,9 +20,14 @@ import 'react-balkangraph-orgchart/dist/index.css'
 
 import avatar from 'src/assets/avatar.svg'
 
+const nodes = [{ id: 1, name: 'Andriy', pid: 0, avatar, role: 'CEO' },
+  { id: 2, name: 'Yarik', pid: 1, avatar, role: 'Developer' },
+  { id: 3, name: 'Sasha', pid: 1, avatar, role: 'Developer' },
+  { id: 4, name: 'Oleh', pid: 1, avatar, role: 'Designer' }]
+
 <OrgChart
   onCardClick={(object) => console.log(object)}
-  nodes={[{ id: 1, name: 'Andriy', pid: 0, avatar, role: 'CEO' }]}
+  nodes={nodes}
   className='org-chart-container'
   id='my-custom-id-2'
   config={{
@@ -31,6 +36,64 @@ import avatar from 'src/assets/avatar.svg'
       field_0: "name",
       field_1: "role"
      }
+  }}
+/>
+}
+```
+## Usage with custom template
+
+For getting your custom node you should use the `getNode` function 
+```tsx 
+getNode({ component, width, height })
+
+types = {
+  component: ReactElement
+  width: number
+  height: number
+}
+```
+
+```tsx
+import React, { Component } from 'react'
+
+import MyComponent from 'react-balkangraph-orgchart'
+import 'react-balkangraph-orgchart/dist/index.css'
+
+import avatar from 'src/assets/avatar.svg'
+
+const nodes = [{ id: 1, name: 'Andriy', pid: 0, avatar, role: 'CEO' },
+  { id: 2, name: 'Yarik', pid: 1, avatar, role: 'Developer' },
+  { id: 3, name: 'Sasha', pid: 1, avatar, role: 'Developer' },
+  { id: 4, name: 'Oleh', pid: 1, avatar, role: 'Designer' }]
+
+const nodeSize = { height: 142, width: 348 }
+
+<OrgChart
+  customTemplate
+  onCardClick={(object) => console.log(object)}
+  nodes={nodes.map(({ id, pid, name, avatar, role }) => ({
+    id,
+    pid,
+    node: getNode({
+      ...nodeSize,
+      component: (
+        <div className='org-chart-item'>
+          <img src={avatar} alt='' className='tmlt-img' />
+          <div className='tmlt-container'>
+            <h1 className='tmlt-name'>{name}</h1>
+            <span className='tmlt-role'>{role}</span>
+          </div>
+        </div>
+      )
+    })
+  }))}
+  className='org-chart-container'
+  id='my-custom-id-1'
+  nodeHeight={nodeSize.height}
+  nodeWidth={nodeSize.width}
+  config={{
+    nodeBinding: { node: 'node' },
+    mouseScrool: OrgChartConfig.action.ctrlZoom
   }}
 />
 }
