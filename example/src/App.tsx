@@ -4,7 +4,7 @@ import {
   Switch,
   Route,
   BrowserRouter as Router
-  // Redirect
+  Redirect
 } from 'react-router-dom'
 
 import 'react-balkangraph-orgchart/dist/index.css'
@@ -43,7 +43,7 @@ const App = () => (
         <Route path='/default-template' component={MainTemplate} />
         <Route path='/custom-template' component={CustomTemplate} />
         <Route path='/custom-config' component={CustomConfig} />
-        {/* <Redirect to='/custom-template' /> */}
+        <Redirect to='/custom-template' from="/" />
       </div>
     </Switch>
   </Router>
