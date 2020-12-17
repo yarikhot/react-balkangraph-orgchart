@@ -3,7 +3,7 @@ import {
   NavLink,
   Switch,
   Route,
-  BrowserRouter as Router
+  BrowserRouter as Router,
   Redirect
 } from 'react-router-dom'
 
@@ -43,7 +43,7 @@ const App = () => (
         <Route path='/default-template' component={MainTemplate} />
         <Route path='/custom-template' component={CustomTemplate} />
         <Route path='/custom-config' component={CustomConfig} />
-        <Redirect to='/custom-template' from="/" />
+        <Redirect to='/custom-template' from='/' />
       </div>
     </Switch>
   </Router>
