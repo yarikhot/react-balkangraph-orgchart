@@ -1,6 +1,6 @@
 {
   "name": "react-balkangraph-orgchart",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A react wrapper for balkangraph-orgchart",
   "author": "yarikhot",
   "license": "MIT",
@@ -26,7 +26,6 @@
   "peerDependencies": {
     "react": "^16.0.0",
     "@balkangraph/orgchart.js": "^7.6.15",
-    "@types/lodash.isequal": "^4.5.5",
     "lodash.isequal": "^4.5.0"
   },
   "devDependencies": {
@@ -58,17 +57,16 @@
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-scripts": "^3.4.1",
-    "typescript": "^3.7.5"
+    "typescript": "^3.7.5",
+    "@types/lodash.isequal": "^4.5.5",
+    "@types/react-router-dom": "^5.1.6",
+    "react-live": "^2.2.3",
+    "lodash.isequal": "^4.5.0",
+    "react-router-dom": "^5.2.0",
+    "@balkangraph/orgchart.js": "^7.6.15"
   },
   "files": [
     "dist"
   ],
-  "dependencies": {
-    "@balkangraph/orgchart.js": "^7.6.15",
-    "@types/lodash.isequal": "^4.5.5",
-    "@types/react-router-dom": "^5.1.6",
-    "lodash.isequal": "^4.5.0",
-    "react-live": "^2.2.3",
-    "react-router-dom": "^5.2.0"
-  }
+  "dependencies": {}
 }

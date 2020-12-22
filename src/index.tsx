@@ -1,9 +1,19 @@
-import React, { Component, FunctionComponent, ReactElement } from 'react'
+import React, {
+  Component,
+  FunctionComponent,
+  ReactElement,
+  ReactChild
+} from 'react'
 import ReactDOMServer from 'react-dom/server'
 import OrgChart from '@balkangraph/orgchart.js'
 import isEqual from 'lodash.isequal'
 
 import styles from './styles.module.css'
+
+import OrgChartModel, {
+  NodeModel,
+  OrgChartOptions
+} from './balkangraph-orgchart'
 
 interface NodeType {
   id: string | number
@@ -13,28 +23,28 @@ interface NodeType {
 }
 interface CardProps {
   event: object
-  node: object
+  node: NodeModel
 }
 interface OrgChartProps {
+  nodes: NodeType[]
   defaultTemplate?: string
   onCardClick?: (prop: CardProps) => void
-  nodes: Array<NodeType>
   zoomOutIcon?: string
   zoomInIcon?: string
-  config?: object
+  config?: OrgChartOptions
   id?: string
   disableNodeMenuButton?: boolean
   className?: string
   nodeHeight?: number
   nodeWidth?: number
-  customTemplate?: boolean
+  enabledCustomTemplate?: boolean
 }
 
 interface ForeignObjectProps {
   width?: number
   height?: number
   className?: string
-  children: any
+  children: ReactChild
 }
 
 interface GetNodeType {
@@ -44,14 +54,16 @@ interface GetNodeType {
 }
 
 class OrgChartWrapper extends Component<OrgChartProps> {
-  private divRef = React.createRef<HTMLParagraphElement>()
+  private divRef = React.createRef<HTMLDivElement>()
+  private chart: OrgChartModel
 
   componentDidMount() {
+    if (!this.divRef.current) return
     const {
       defaultTemplate = 'ula',
       onCardClick,
       nodes = [],
-      customTemplate,
+      enabledCustomTemplate,
       zoomOutIcon,
       zoomInIcon,
       config,
@@ -67,11 +79,11 @@ class OrgChartWrapper extends Component<OrgChartProps> {
       OrgChart.templates.customTemplate.nodeMenuButton = '' // reduce three dots in bottom right corner
     }
 
-    if (customTemplate) {
+    if (enabledCustomTemplate) {
       OrgChart.templates.customTemplate.size = [nodeWidth, nodeHeight]
     }
 
-    if (customTemplate) {
+    if (enabledCustomTemplate) {
       OrgChart.templates.customTemplate.node = '{val}'
     }
 
@@ -85,7 +97,6 @@ class OrgChartWrapper extends Component<OrgChartProps> {
       OrgChart.toolbarUI.zoomInIcon = zoomInIcon
     }
 
-    //@ts-ignore
     this.chart = new OrgChart(this.divRef.current, {
       toolbar: {
         zoom: true
@@ -95,7 +106,7 @@ class OrgChartWrapper extends Component<OrgChartProps> {
       zoom: {
         speed: 50
       },
-      ...(customTemplate && {
+      ...(enabledCustomTemplate && {
         nodeMenu: undefined,
         menu: undefined,
         enableSearch: false
@@ -104,11 +115,8 @@ class OrgChartWrapper extends Component<OrgChartProps> {
       template: 'customTemplate'
     })
 
-    //@ts-ignore
-    this.chart.on('click', (sender, args: CardProps) => {
-      if (onCardClick) {
-        onCardClick(args)
-      }
+    this.chart.on('click', (sender: object, args: CardProps) => {
+      if (onCardClick) onCardClick(args)
 
       return false
     })
@@ -119,22 +127,20 @@ class OrgChartWrapper extends Component<OrgChartProps> {
   }
 
   componentDidUpdate = (prevProps: OrgChartProps) => {
-    if (!isEqual(prevProps.nodes, this.props.nodes)) {
-      if (
-        !prevProps.nodes.every(
-          ({ id }: NodeType, index) => this.props.nodes[index]?.id === id
-        )
-      ) {
-        //@ts-ignore
-        this.chart.load(this.props.nodes)
-      } else {
-        const newNode = this.props.nodes.find(
-          (node, index) => !isEqual(node, prevProps.nodes[index])
-        )
+    if (isEqual(prevProps.nodes, this.props.nodes)) return
 
-        //@ts-ignore
-        this.chart.updateNode(newNode)
-      }
+    if (
+      !prevProps.nodes.every(
+        ({ id }: NodeType, index) => this.props.nodes[index]?.id === id
+      )
+    ) {
+      this.chart.load(this.props.nodes)
+    } else {
+      const newNode = this.props.nodes.find(
+        (node: NodeType, index) => !isEqual(node, prevProps.nodes[index])
+      )
+
+      if (newNode) this.chart.updateNode(newNode)
     }
   }
 
@@ -156,11 +162,8 @@ const SvgForeignObject: FunctionComponent<ForeignObjectProps> = ({
   </svg>
 )
 
-const getHtmlFromReact = (component: ReactElement) =>
-  ReactDOMServer.renderToString(component)
-
-const getNode = ({ component, width, height }: GetNodeType) =>
-  getHtmlFromReact(
+const getNode = ({ component, width, height }: GetNodeType): string =>
+  ReactDOMServer.renderToString(
     <SvgForeignObject width={width} height={height}>
       {component}
     </SvgForeignObject>
