@@ -9,7 +9,7 @@ const scope = { OrgChart, getNode, nodes, OrgChartConfig }
 
 const code = `
  <OrgChart
-    customTemplate
+    enabledCustomTemplate
     onCardClick={(object) => console.log(object)}
     nodes={nodes.map(({ id, pid, name, avatar, role }) => ({
       id,

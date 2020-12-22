@@ -12,26 +12,27 @@ import 'react-balkangraph-orgchart/dist/index.css'
 import CustomTemplate from './Templates/CustomTemplate'
 import MainTemplate from './Templates/MainTemplate'
 import CustomConfig from './Templates/CustomConfig'
+import { alias, getAliasRoute, routes } from './helpers/routes'
 
 const App = () => (
   <Router>
     <header className='navigate'>
       <NavLink
-        to='/default-template'
+        to={getAliasRoute(routes.defaultTemplate)}
         className='link'
         activeClassName='link--active '
       >
         Default Template
       </NavLink>
       <NavLink
-        to='/custom-template'
+        to={getAliasRoute(routes.customTemplate)}
         className='link'
         activeClassName='link--active '
       >
         Custom Template
       </NavLink>
       <NavLink
-        to='/custom-config'
+        to={getAliasRoute(routes.customConfig)}
         className='link'
         activeClassName='link--active '
       >
@@ -40,10 +41,20 @@ const App = () => (
     </header>
     <Switch>
       <div className='live-container'>
-        <Route path='/default-template' component={MainTemplate} />
-        <Route path='/custom-template' component={CustomTemplate} />
-        <Route path='/custom-config' component={CustomConfig} />
-        <Redirect to='/custom-template' from='/' />
+        <Route
+          path={getAliasRoute(routes.defaultTemplate)}
+          component={MainTemplate}
+        />
+        <Route
+          path={getAliasRoute(routes.customTemplate)}
+          component={CustomTemplate}
+        />
+        <Route
+          path={getAliasRoute(routes.customConfig)}
+          component={CustomConfig}
+        />
+        <Redirect to={getAliasRoute(routes.defaultTemplate)} from={'/'} />
+        <Redirect to={getAliasRoute(routes.defaultTemplate)} from={alias} />
       </div>
     </Switch>
   </Router>

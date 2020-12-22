@@ -1,8 +1,10 @@
 # react-balkangraph-orgchart
 
-> A react wrapper for balkangraph-orgchart
+> A react wrapper for [balkangraph-orgchart](https://balkangraph.com/)
 
 [![NPM](https://img.shields.io/npm/v/react-balkangraph-orgchart.svg)](https://www.npmjs.com/package/react-balkangraph-orgchart) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
+
+#### [Demo](https://yarikhot.github.io/react-balkangraph-orgchart)
 
 ## Install
 
@@ -77,7 +79,7 @@ const nodeSize = { height: 142, width: 348 }
       ...nodeSize,
       component: (
         <div className='org-chart-item'>
-          <img src={avatar} alt='' className='tmlt-img' />
+          <img src={avatar} alt='avatar' className='tmlt-img' />
           <div className='tmlt-container'>
             <h1 className='tmlt-name'>{name}</h1>
             <span className='tmlt-role'>{role}</span>
@@ -111,7 +113,7 @@ const nodeSize = { height: 142, width: 348 }
 |    className    |  string  |                   -                  | `className` of org chart wrapper  |
 |   nodeHeight    |  number  |                   -                  | Height of node (only for custom template) |
 |   nodeWidth     |  number  |                   -                  | Width of node (only for custom template)  |
-|  customTemplate |  boolean |               false                  | The flag that changes default node to your custom (HTML) node (paste your `react` component to `node` key in nodes object list)  |
+|enabledCustomTemplate|  boolean |               false                  | The flag that changes default node to your custom (HTML) node (paste your `react` component to `node` key in nodes object list)  |
 
 ## License
 
